@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {# Run `composer require symfony/webpack-encore-bundle`
+           and uncomment the following Encore helpers to start using Symfony UX #}
+        <link rel="stylesheet" href="https://bootswatch.com/5/journal/bootstrap.min.css">
+        {% block stylesheets %}
+            {#{{ encore_entry_link_tags('app') }}#}
+            <style>
+                .no-dec{
+                    text-decoration: none;
+                }
+            </style>
+        {% endblock %}        
+        {% block javascripts %}
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"></script>
+        {% endblock %}
+    </head>
+    <body>
+        {{ include ('include/navbar.html.twig')}}
+        <div class="container">
+            {% block body %}{% endblock %}
+        </div>
+    </body>
+</html>

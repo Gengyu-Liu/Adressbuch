@@ -1,0 +1,47 @@
+{# address/new Twig template #}
+{% extends "base.html.twig"%} 
+{% block title %}
+    Add a new address
+{% endblock %}
+{% block body %}
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.anrede) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.vorname) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.nachname) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">            
+            {{ form_row(form.strasse) }}           
+        </div>
+        <div class="col-4">
+            {{ form_row(form.hausnummer) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.plz) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.ort) }}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.telefon) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.geburtsdatum) }}
+        </div>
+    </div>
+    {{ form_end(form) }}
+{% endblock %}

@@ -8,3 +8,7 @@
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
+
+/nbproject
+/src/Controller/LuckyController.php
+/templates/lucky/number.html.twig

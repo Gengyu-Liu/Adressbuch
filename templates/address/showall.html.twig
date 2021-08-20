@@ -1,0 +1,55 @@
+{# address/showall Twig template #}
+{% extends "base.html.twig"%} 
+{% block title %}
+    Show All the Addresses
+{% endblock %}
+
+{% block body %}
+   
+    <table class="table table-hover">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Anrede</th>
+                <th scope="col">Vorname</th>
+                <th scope="col">Nachname</th>
+                <th scope="col">Address</th>
+                <th scope="col">Geburtsdatum</th>
+                <th scope="col">Tel</th>
+                <th scope="col">Email</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for key, address in addresses %}
+                {% if key is even %}
+                    <tr class="table-primary">
+                    {% else %}       
+                    <tr class="table-danger">   
+                    {% endif %}
+                    <th scope="row">{{ address.id }}</th>
+                    <td>{{ address.convertAnrede(address.anrede) }}</td>
+                    <td>{{ address.vorname }}</td>
+                    <td>{{ address.nachname }}</td>
+                    <td>{{ address.strasse ~ ' ' ~ address.hausnummer ~ ', ' ~ address.plz ~ ' ' ~ address.ort }}</td>
+                    <td>{{ address.geburtsdatum ? address.geburtsdatum.format('d/m/Y'):''}}</td>
+                    <td>{{ address.telefon }}</td>
+                    <td>{{ address.email }}</td>
+                    <td>
+                        <a class="no-dec" data-bs-toggle="modal" data-bs-target="#delete{{address.id}}" href="#">
+                            &#128465;
+                        </a>                       
+                    </td>
+                    <td><a class="no-dec" data-bs-toggle="modal" data-bs-target="#update{{address.id}}" href="#">
+                            &#9998;
+                        </a>
+                    </td>
+                </tr>
+                 {% include ('include/dialogFenster.html.twig') with {'id': address.id, 'ope':'delete','opd':'löschen'} %}
+                 {% include ('include/dialogFenster.html.twig') with {'id': address.id, 'ope':'update','opd':'modifizieren'} %}
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
