@@ -215,15 +215,6 @@ class Address
 
         return $this;
     }
-    public static function convertAnrede(int $i): String{
-        switch($i){
-            case 0: return 'Herr';
-            case 1: return 'Frau';
-            case 2: return 'Dr.';
-            case 3: return 'Prof.';
-            default: return 'Anrede ist ungültig';
-        }
-    }
 
     public function getHausnummer(): ?string
     {
@@ -235,5 +226,14 @@ class Address
         $this->hausnummer = $hausnummer;
 
         return $this;
+    }
+    public static function convertAnrede(int $i): String{
+        switch($i){
+            case 0: return 'Herr';
+            case 1: return 'Frau';
+            case 2: return 'Dr.';
+            case 3: return 'Prof.';
+            default: return 'Anrede ist ungültig';
+        }
     }
 }

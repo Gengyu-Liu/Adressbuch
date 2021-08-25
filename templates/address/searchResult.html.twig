@@ -1,0 +1,82 @@
+{# address/searchResult Twig template #}
+{% extends "base.html.twig"%} 
+{% block title %}
+    Search Result
+{% endblock %}
+
+{% block body %}
+    {% if addresses is empty%}
+        <h1>Kein Ergebnis von der Suche nach {{ keyword }}</h1>  
+    {% else %}
+        <h1>Ergebnisse von der Suche nach {{ keyword }}</h1>  
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">ID
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=id&order=ASC">&#8593;</a>
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=id&order=DESC">&#8595;</a>
+                    </th>
+                    <th scope="col">Anrede
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=anrede&order=ASC">&#8593;</a>
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=anrede&order=DESC">&#8595;</a>
+                    </th>
+                    <th scope="col">Vorname
+                     <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=vorname&order=ASC">&#8593;</a>
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=vorname&order=DESC">&#8595;</a>
+                    </th>
+                    <th scope="col">Nachname
+                     <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=nachname&order=ASC">&#8593;</a>
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=nachname&order=DESC">&#8595;</a>
+                    </th>
+                    <th scope="col">Address
+                     <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=strasse&order=ASC">&#8593;</a>
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=strasse&order=DESC">&#8595;</a>
+                    </th>
+                    <th scope="col">Geburtsdatum
+                     <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=geburtsdatum&order=ASC">&#8593;</a>
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=geburtsdatum&order=DESC">&#8595;</a>
+                    </th>
+                    <th scope="col">Tel
+                     <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=telefon&order=ASC">&#8593;</a>
+                     <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=telefon&order=DESC">&#8595;</a>
+                    </th>
+                    <th scope="col">Email
+                     <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=email&order=ASC">&#8593;</a>
+                    <a class="no-dec" href="/search?form%5Bkeyword%5D={{ keyword }}&form%5BSuchen%5D=&col=email&order=DESC">&#8595;</a>
+                    </th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead> 
+            <tbody>
+                {% for key, address in addresses %}
+                    {% if key is even %}
+                        <tr class="table-primary">
+                        {% else %}       
+                        <tr class="table-danger">   
+                        {% endif %} 
+                        <th scope="row">{{ address.id | highlight(keyword) | raw}}</th>
+                        <td>{{ address.convertAnrede(address.anrede) | highlight(keyword) | raw}}</td>
+                        <td>{{ address.vorname | highlight(keyword) | raw }}</td>
+                        <td>{{ address.nachname | highlight(keyword) | raw }}</td>
+                        <td>{{ (address.strasse ~ ' ' ~ address.hausnummer ~ ', ' ~ address.plz ~ ' ' ~ address.ort) | highlight(keyword) | raw  }}</td>
+                        <td>{{ address.geburtsdatum ? address.geburtsdatum.format('d/m/Y')| highlight(keyword) | raw:''}}</td>
+                        <td>{{ address.telefon | highlight(keyword) | raw  }}</td>
+                        <td>{{ address.email | highlight(keyword) | raw }}</td>
+                        <td>
+                            <a class="no-dec" data-bs-toggle="modal" data-bs-target="#delete{{address.id}}" href="#">
+                                &#128465;
+                            </a>                       
+                        </td>
+                        <td><a class="no-dec" data-bs-toggle="modal" data-bs-target="#update{{address.id}}" href="#">
+                                &#9998;
+                            </a>
+                        </td>
+                    </tr>
+                    {% include ('include/dialogFenster.html.twig') with {'id': address.id, 'ope':'delete','opd':'löschen'} %}
+                    {% include ('include/dialogFenster.html.twig') with {'id': address.id, 'ope':'update','opd':'modifizieren'} %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

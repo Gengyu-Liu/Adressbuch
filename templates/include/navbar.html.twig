@@ -18,7 +18,7 @@
                     <li class="nav-item">
                         <a class="nav-link
                            {% if app.request.attributes.get('_route') == 'address_showall' %}active{% endif %}" 
-                           href="/showall">Show</a>
+                           href="{{ path('address_showall',{'col':'id','order':'DESC'}) }}">Show</a>
                         
                     </li>
                     <li class="nav-item">
@@ -26,14 +26,12 @@
                            {% if app.request.attributes.get('_route') == 'address_add' %}active{% endif %}"
                            href="/add">Add</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">About</a>
-                    </li>
                 </ul>
-                <form class="d-flex">
+{#                <form class="d-flex">
                     <input class="form-control me-sm-2" type="text" placeholder="Search">
                     <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                </form>#}
+                {{ render(controller('App\\Controller\\AddressController::search',{'col':'id','order':'DESC'})) }}
             </div>
         </div>
     </nav>

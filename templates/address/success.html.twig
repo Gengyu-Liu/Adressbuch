@@ -1,11 +1,11 @@
 {# address/success Twig template #}
 {% extends "base.html.twig"%} 
 {% block title %}
-    Success
+   erfolgreich {{ operation }}
 {% endblock %}
 
 {% block body %}
     Eine Adresse wurde erfolgreich {{ operation }}.
     <a class="nav-link" href="/add">Eine neue Adresse Hinzufügen</a>
-    <a class="nav-link" href="/showall">Zeig alle Adresse</a>
+    <a class="nav-link" href="/showall">Alle Adresse anzeigen</a>
 {% endblock %}
